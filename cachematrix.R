@@ -4,11 +4,28 @@
  # source('cachematrix.R')
  # aMatrix <- makeCacheMatrix( rbind(c(1, -1/4), c(-1/4, 1)) )  # invertible square matrix
  # aMatrix$get()                                                # retrieve the value of x
- # aMatrix$getinverse()                                         # retrieve the value of m, which should be NULL
+# aMatrix$get()
+      # [,1]  [,2]
+      # [1,]  1.00 -0.25
+      # [2,] -0.25  1.00
+ # aMatrix$getinverse()                                         # retrieve the value of inversed_x, which should be NULL
+      # NULL
  # aMatrix$set( rbind(c(3, 4), c(5, 7) ) )                      # set another invertible square matrix
  # cacheSolve(aMatrix)                                          # notice which inverse is calculated 
+      # > cacheSolve(aMatrix) 
+      # [,1] [,2]
+      # [1,]    7   -4
+      # [2,]   -5    3
  # aMatrix$getinverse()                                         # retrieve it directly, now that it has been cached
+      # > aMatrix$getinverse()
+      # [,1] [,2]
+      # [1,]    7   -4
+      # [2,]   -5    3
  # cacheSolve(aMatrix)                                          # notice the message "getting cached data"
+      # getting cached data
+      # [,1] [,2]
+      # [1,]    7   -4
+      # [2,]   -5    3
 
 
 ## This function creates a special "matrix" object that can cache its inverse
@@ -60,3 +77,24 @@ cacheSolve <- function(x, ...) {
      inversed_x
    }
 
+
+## Another sample run:
+## > x = rbind(c(1, -1/4), c(-1/4, 1))
+## > m = makeCacheMatrix(x)
+## > m$get()
+##       [,1]  [,2]
+## [1,]  1.00 -0.25
+## [2,] -0.25  1.00
+
+## No cache in the 1st run
+## > cacheSolve(m)
+##           [,1]      [,2]
+## [1,] 1.0666667 0.2666667
+## [2,] 0.2666667 1.0666667
+
+## Retrieving cache in the 2nd run
+## > cacheSolve(m)
+## getting cached data.
+##           [,1]      [,2]
+## [1,] 1.0666667 0.2666667
+## [2,] 0.2666667 1.0666667
